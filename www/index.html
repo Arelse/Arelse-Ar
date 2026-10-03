@@ -20,18 +20,18 @@
 </header>
 
 <nav class="glass toolbar" aria-label="Drawing tools">
-  <button class="tool active" data-tool="pen" aria-label="Pen">P</button>
-  <button class="tool" data-tool="eraser" aria-label="Eraser">E</button>
+  <button class="tool active" data-tool="pen" aria-label="Pen"><img class="icon" src="assets/icons/pen.svg" alt=""></button>
+  <button class="tool" data-tool="eraser" aria-label="Eraser"><img class="icon" src="assets/icons/eraser.svg" alt=""></button>
   <div class="swatches">
     <button class="swatch active" data-color="#651C32" style="background:#651C32" aria-label="Burgundy"></button>
     <button class="swatch" data-color="#3D0F1D" style="background:#3D0F1D" aria-label="Dark wine"></button>
     <button class="swatch" data-color="#FFFFFF" style="background:#FFFFFF" aria-label="White"></button>
   </div>
   <input id="size" type="range" min="1" max="24" value="4" aria-label="Brush size">
-  <button id="btn-undo" class="tool" aria-label="Undo">U</button>
-  <button id="btn-clear" class="tool" aria-label="Clear">X</button>
-  <button id="btn-grid" class="tool" aria-label="Toggle grid">G</button>
-  <label class="tool" aria-label="Load reference image">R
+  <button id="btn-undo" class="tool" aria-label="Undo"><img class="icon" src="assets/icons/undo.svg" alt=""></button>
+  <button id="btn-clear" class="tool" aria-label="Clear"><img class="icon" src="assets/icons/clear.svg" alt=""></button>
+  <button id="btn-grid" class="tool" aria-label="Toggle grid"><img class="icon" src="assets/icons/grid.svg" alt=""></button>
+  <label class="tool" aria-label="Load reference image"><img class="icon" src="assets/icons/reference.svg" alt="">
     <input id="ref-input" type="file" accept="image/*" hidden>
   </label>
 </nav>
