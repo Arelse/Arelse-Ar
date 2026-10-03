@@ -1,0 +1,25 @@
+:root {
+  --burgundy: #651C32;
+  --wine: #3D0F1D;
+  --ivory: #FBF8F3;
+  --white: #FFFFFF;
+  --glass-bg: rgba(255, 255, 255, 0.14);
+  --glass-border: rgba(255, 255, 255, 0.32);
+  --burgundy-glass: rgba(101, 28, 50, 0.72);
+  --shadow: 0 12px 32px rgba(61, 15, 29, 0.35), 0 2px 6px rgba(0, 0, 0, 0.18);
+  --radius: 22px;
+  --font: -apple-system, "SF Pro Text", "Helvetica Neue", Inter, system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font);
+  color: var(--white);
+  background: linear-gradient(160deg, var(--ivory), #EFE4E7);
+  -webkit-font-smoothing: antialiased;
+}
+
+button { font: inherit; color: inherit; cursor: pointer; border: none; background: none; }
