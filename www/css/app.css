@@ -201,6 +201,48 @@ a { text-decoration: none; }
   --stage-a: #222222; --stage-b: #0a0a0a;
 }
 
+/* Gradient themes */
+:root[data-theme="sunset"] {
+  --wine: #2A0F1F; --burgundy: #B5485D; --gold: #F2B66D;
+  --text: #FFF6F0; --on-accent: #FFF6F0;
+  --glass: rgba(255, 255, 255, 0.14); --line: rgba(255, 255, 255, 0.28);
+  --pill: rgba(181, 72, 93, 0.9); --accent-soft: rgba(242, 182, 109, 0.35);
+  --bg-a: #2A0F1F; --bg-b: #B5485D; --bg-c: #F2A65A;
+  --stage-a: #3A1424; --stage-b: #1A0810;
+}
+:root[data-theme="aurora"] {
+  --wine: #0B1B2B; --burgundy: #1E7A74; --gold: #8EF0C8;
+  --text: #EFFFFA; --on-accent: #EFFFFA;
+  --glass: rgba(255, 255, 255, 0.12); --line: rgba(255, 255, 255, 0.26);
+  --pill: rgba(30, 122, 116, 0.9); --accent-soft: rgba(142, 240, 200, 0.3);
+  --bg-a: #0B1B2B; --bg-b: #2D2A6E; --bg-c: #0E5E5A;
+  --stage-a: #10263D; --stage-b: #050D18;
+}
+:root[data-theme="ocean"] {
+  --wine: #06223A; --burgundy: #125E8A; --gold: #8FD3F4;
+  --text: #EAF6FF; --on-accent: #EAF6FF;
+  --glass: rgba(255, 255, 255, 0.12); --line: rgba(255, 255, 255, 0.26);
+  --pill: rgba(18, 94, 138, 0.9); --accent-soft: rgba(143, 211, 244, 0.35);
+  --bg-a: #06223A; --bg-b: #125E8A; --bg-c: #3AA6C9;
+  --stage-a: #0C2F4A; --stage-b: #041321;
+}
+:root[data-theme="dusk"] {
+  --wine: #1A1030; --burgundy: #5B3A8C; --gold: #E8B4F0;
+  --text: #F7F0FF; --on-accent: #F7F0FF;
+  --glass: rgba(255, 255, 255, 0.12); --line: rgba(255, 255, 255, 0.26);
+  --pill: rgba(91, 58, 140, 0.9); --accent-soft: rgba(232, 180, 240, 0.3);
+  --bg-a: #1A1030; --bg-b: #5B3A8C; --bg-c: #C2577A;
+  --stage-a: #241845; --stage-b: #0D0716;
+}
+:root[data-theme="peach"] {
+  --wine: #FFF1E6; --burgundy: #E8836B; --gold: #B8643F;
+  --text: #4A2116; --on-accent: #FFFFFF;
+  --glass: rgba(255, 255, 255, 0.5); --line: rgba(232, 131, 107, 0.35);
+  --pill: rgba(232, 131, 107, 0.92); --accent-soft: rgba(232, 131, 107, 0.3);
+  --bg-a: #FFF4EC; --bg-b: #FFD9C7; --bg-c: #F7B8A0;
+  --stage-a: #FFEADF; --stage-b: #F3CDBB;
+}
+
 /* Layers and brushes */
 .lpanel {
   position: absolute; top: calc(max(12px, env(safe-area-inset-top)) + 66px); left: 12px; right: 12px;
