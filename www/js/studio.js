@@ -1,4 +1,4 @@
-// Studio screen: layers, brushes, colors, photo layers, camera and saving.
+// Studio screen: layers, brushes, colors, selection, photo layers, camera and saving.
 const stage = $('stage'), cv = $('draw'), cam = $('cam'), S = Engine.E;
 Engine.attach(cv);
 const pe = e => (e.pressure > 0 ? e.pressure : 0.5);
@@ -80,6 +80,7 @@ PALETTE.forEach((c, i) => {
   b.setAttribute('aria-label', 'Color ' + c);
   b.addEventListener('click', () => {
     S.color = c;
+    applyColor(c);
     document.querySelectorAll('.sw').forEach(x => x.classList.remove('on'));
     b.classList.add('on');
   });
@@ -121,8 +122,8 @@ $('layer-del').addEventListener('click', () => {
 $('blend').addEventListener('change', e => Engine.setProp('blend', e.target.value));
 $('lop').addEventListener('input', e => Engine.setProp('opacity', Number(e.target.value) / 100));
 $('clear-btn').addEventListener('click', () => Engine.clearActive());
-$('undo-btn').addEventListener('click', () => { Engine.undo(); renderLayers(); });
-$('redo-btn').addEventListener('click', () => { Engine.redo(); renderLayers(); });
+$('undo-btn').addEventListener('click', () => { Engine.undo(); renderLayers(); updateSel(); });
+$('redo-btn').addEventListener('click', () => { Engine.redo(); renderLayers(); updateSel(); });
 $('grid-btn').addEventListener('click', () => stage.classList.toggle('grid'));
 $('save-btn').addEventListener('click', saveDrawing);
 $('cam-btn').addEventListener('click', () => toggleCam());
@@ -150,6 +151,7 @@ function addPicture(src) {
   select(img);
   setTool('select');
 }
+let sel = null, drag = null;
 function select(img) {
   if (sel) sel.classList.remove('sel');
   sel = img;
@@ -161,7 +163,6 @@ function select(img) {
     $('pic-op').value = Math.round(parseFloat(img.style.opacity) * 100);
   }
 }
-let sel = null, drag = null;
 stage.addEventListener('pointerdown', e => {
   if (S.tool !== 'select') return;
   const img = e.target.closest('.pic');
@@ -233,5 +234,5 @@ function saveDrawing() {
   if (saveGallery(list)) toast('Saved to gallery');
 }
 
-// Tool setup
+// Color picker hooks (applyColor is defined in color.js)
 setTool('brush');
