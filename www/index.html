@@ -91,6 +91,7 @@
   <div id="stage" class="stage">
     <video id="cam" autoplay playsinline muted hidden></video>
     <canvas id="draw"></canvas>
+    <div id="selbox" class="selbox" hidden></div>
   </div>
 
   <header class="glass top">
@@ -139,8 +140,6 @@
     <label class="sl">Opacity <input type="range" id="pic-op" min="10" max="100" value="100"></label>
     <button class="text-btn danger" id="pic-del"><svg class="icon"><use href="#i-trash"/></svg> Remove photo</button>
   </div>
-
-  <div id="selbox" class="selbox" hidden></div>
 
   <div class="glass sheet" id="picker" hidden>
     <canvas id="sv" width="220" height="180"></canvas>
@@ -238,8 +237,8 @@
 
 <script src="js/app.js"></script>
 <script src="js/engine.js"></script>
-<script src="js/studio.js"></script><script src="js/color.js"></script>
+<script src="js/studio.js"></script>
+<script src="js/color.js"></script>
 <script src="js/trace.js"></script>
-
 </body>
 </html>
