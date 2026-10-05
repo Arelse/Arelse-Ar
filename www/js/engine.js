@@ -1,4 +1,4 @@
-// Layered drawing engine: layers, blend modes, brushes, pressure, stabilizer and per-layer undo.
+// Layered drawing engine: layers, blend modes, brushes, pressure, stabilizer, fill, selection and per-layer undo.
 const BRUSHES = {
   pencil:   { label: 'Pencil',   size: 3,  alpha: 0.85, pressure: true },
   pen:      { label: 'Pen',      size: 6,  alpha: 1,    pressure: true },
@@ -109,7 +109,7 @@ const Engine = (() => {
     render();
   }
 
-  // Strokes
+  // Strokes and shapes
   function begin(x, y, pe) {
     if (!E.active || E.active.locked) return false;
     if (E.tool === 'rectsel') { selBegin(x, y); return true; }
@@ -197,41 +197,6 @@ const Engine = (() => {
     ctx.restore();
   }
 
-  // Display and export
-  function render() {
-    if (!dctx) return;
-    dctx.save();
-    dctx.setTransform(E.dpr, 0, 0, E.dpr, 0, 0);
-    dctx.clearRect(0, 0, E.W, E.H);
-    E.layers.forEach(L => {
-      if (!L.visible) return;
-      dctx.globalCompositeOperation = L.blend;
-      dctx.globalAlpha = L.opacity;
-      dctx.drawImage(L.canvas, 0, 0, E.W, E.H);
-      if (drawing && E.tool === 'brush' && L === E.active && !BRUSHES[E.brush].erase) {
-        dctx.globalCompositeOperation = 'source-over';
-        dctx.globalAlpha = L.opacity * clamp(E.opacity * BRUSHES[E.brush].alpha);
-        dctx.drawImage(live, 0, 0, E.W, E.H);
-      }
-    });
-    if (E.float && E.active && E.active.visible) {
-      dctx.globalCompositeOperation = E.active.blend;
-      dctx.globalAlpha = E.active.opacity;
-      dctx.drawImage(E.float.canvas, E.float.x, E.float.y, E.float.w, E.float.h);
-    }
-    dctx.restore();
-  }
-  function composite(ctx, s = 1) {
-    E.layers.forEach(L => {
-      if (!L.visible) return;
-      ctx.globalCompositeOperation = L.blend;
-      ctx.globalAlpha = L.opacity;
-      ctx.drawImage(L.canvas, 0, 0, E.W * s, E.H * s);
-    });
-    ctx.globalAlpha = 1;
-    ctx.globalCompositeOperation = 'source-over';
-  }
-
   // Fill bucket: flood fill of the active layer, starting at (x, y)
   const hexToRgb = h => { const n = parseInt(h.slice(1), 16); return { r: n >> 16 & 255, g: n >> 8 & 255, b: n & 255 }; };
   function fill(x, y, tol = 32) {
@@ -314,6 +279,41 @@ const Engine = (() => {
     E.sel = null;
     render();
     return true;
+  }
+
+  // Display and export
+  function render() {
+    if (!dctx) return;
+    dctx.save();
+    dctx.setTransform(E.dpr, 0, 0, E.dpr, 0, 0);
+    dctx.clearRect(0, 0, E.W, E.H);
+    E.layers.forEach(L => {
+      if (!L.visible) return;
+      dctx.globalCompositeOperation = L.blend;
+      dctx.globalAlpha = L.opacity;
+      dctx.drawImage(L.canvas, 0, 0, E.W, E.H);
+      if (drawing && E.tool === 'brush' && L === E.active && !BRUSHES[E.brush].erase) {
+        dctx.globalCompositeOperation = 'source-over';
+        dctx.globalAlpha = L.opacity * clamp(E.opacity * BRUSHES[E.brush].alpha);
+        dctx.drawImage(live, 0, 0, E.W, E.H);
+      }
+    });
+    if (E.float && E.active && E.active.visible) {
+      dctx.globalCompositeOperation = E.active.blend;
+      dctx.globalAlpha = E.active.opacity;
+      dctx.drawImage(E.float.canvas, E.float.x, E.float.y, E.float.w, E.float.h);
+    }
+    dctx.restore();
+  }
+  function composite(ctx, s = 1) {
+    E.layers.forEach(L => {
+      if (!L.visible) return;
+      ctx.globalCompositeOperation = L.blend;
+      ctx.globalAlpha = L.opacity;
+      ctx.drawImage(L.canvas, 0, 0, E.W * s, E.H * s);
+    });
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = 'source-over';
   }
 
   return { E, BRUSHES, attach, resize, addLayer, duplicateLayer, deleteLayer, setActive, setProp,
